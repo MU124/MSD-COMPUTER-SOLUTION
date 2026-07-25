@@ -18,20 +18,20 @@ app.use(
   })
 );
 
-// Body Parsers
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// Static Files
-app.use(express.static(path.join(__dirname, 'public')));
-
-// IISNode URL Normalization (Strips IIS /app.js prefix)
+// IISNode URL Normalization Middleware (MUST BE BEFORE express.static)
 app.use((req, res, next) => {
   if (req.url.startsWith('/app.js')) {
     req.url = req.url.replace('/app.js', '') || '/';
   }
   next();
 });
+
+// Body Parsers
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Static Files (Serves CSS, JS, images, uploads from /public)
+app.use(express.static(path.join(__dirname, 'public')));
 
 // View Engine (EJS)
 app.set('views', path.join(__dirname, 'views'));
@@ -46,7 +46,7 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 24 Hours
       httpOnly: true,
-      secure: false // Set to true if running HTTPS in production
+      secure: false
     }
   })
 );
