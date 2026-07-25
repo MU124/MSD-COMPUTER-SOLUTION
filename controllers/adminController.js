@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const AdminModel = require('../models/adminModel');
 const ProductModel = require('../models/productModel');
 const CategoryModel = require('../models/categoryModel');
