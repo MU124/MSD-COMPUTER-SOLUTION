@@ -16,7 +16,8 @@ const AdminController = {
 
   async postLogin(req, res) {
     try {
-      const { username, password } = req.body;
+      const username = (req.body.username || '').trim();
+      const password = (req.body.password || '').trim();
       
       // Ensure default admin exists if table is empty
       await AdminModel.ensureDefaultAdmin();

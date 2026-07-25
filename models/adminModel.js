@@ -4,7 +4,8 @@ const bcrypt = require('bcryptjs');
 const AdminModel = {
   async findByUsername(username) {
     try {
-      const [rows] = await db.query('SELECT * FROM admins WHERE username = ? LIMIT 1', [username]);
+      const cleanUsername = (username || '').trim().toLowerCase();
+      const [rows] = await db.query('SELECT * FROM admins WHERE LOWER(TRIM(username)) = ? LIMIT 1', [cleanUsername]);
       return rows[0] || null;
     } catch (err) {
       console.error('Error in findByUsername:', err.message);
