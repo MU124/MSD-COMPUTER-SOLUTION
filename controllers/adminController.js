@@ -37,14 +37,19 @@ const AdminController = {
         });
       }
 
-      // Store in session
+      // Store in session and explicitly save before redirecting
       req.session.admin = {
         id: admin.id,
         username: admin.username,
         full_name: admin.full_name
       };
 
-      res.redirect('/admin/dashboard');
+      req.session.save((err) => {
+        if (err) {
+          console.error('Session Save Error:', err);
+        }
+        return res.redirect('/admin/dashboard');
+      });
     } catch (err) {
       console.error(err);
       res.render('admin/login', {

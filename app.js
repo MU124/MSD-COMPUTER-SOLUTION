@@ -40,6 +40,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Enable Trust Proxy for IISNode Reverse Proxy
+app.set('trust proxy', 1);
+
 // 6. Session Configuration
 app.use(
   session({
@@ -49,7 +52,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 24 Hours
       httpOnly: true,
-      secure: false
+      secure: false,
+      sameSite: 'lax'
     }
   })
 );
