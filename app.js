@@ -10,7 +10,18 @@ const SettingsModel = require('./models/settingsModel');
 
 const app = express();
 
-// Security Headers with Helmet
+// 1. Universal IISNode URL Normalizer Middleware (MUST BE AT THE VERY TOP)
+app.use((req, res, next) => {
+  if (req.url && req.url.startsWith('/app.js')) {
+    req.url = req.url.substring(7); // Strip '/app.js'
+    if (!req.url || !req.url.startsWith('/')) {
+      req.url = '/' + req.url;
+    }
+  }
+  next();
+});
+
+// 2. Security Headers with Helmet
 app.use(
   helmet({
     contentSecurityPolicy: false, // Disabled for external CDNs (Bootstrap, Google Fonts, Unsplash)
@@ -18,18 +29,18 @@ app.use(
   })
 );
 
-// Body Parsers
+// 3. Body Parsers
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Static Files (Serves CSS, JS, images, uploads from /public)
+// 4. Static Files (Serves CSS, JS, images, uploads from /public)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// View Engine (EJS)
+// 5. View Engine (EJS)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// Session Configuration
+// 6. Session Configuration
 app.use(
   session({
     secret: process.env.SESSION_SECRET || 'msd_computer_solution_secret_key_2026',
@@ -43,11 +54,11 @@ app.use(
   })
 );
 
-// Register Routes
+// 7. Register Routes
 app.use('/', websiteRoutes);
 app.use('/admin', adminRoutes);
 
-// Custom 404 Handler
+// 8. Custom 404 Handler
 app.use(async (req, res) => {
   try {
     const settings = await SettingsModel.getAllSettings();
@@ -61,7 +72,7 @@ app.use(async (req, res) => {
   }
 });
 
-// Global Error Handler
+// 9. Global Error Handler
 app.use((err, req, res, next) => {
   console.error('Unhandled Server Error:', err);
   res.status(500).send('Internal Server Error: ' + err.message);
