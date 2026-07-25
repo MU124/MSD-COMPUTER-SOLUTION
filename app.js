@@ -18,14 +18,6 @@ app.use(
   })
 );
 
-// IISNode URL Normalization Middleware (MUST BE BEFORE express.static)
-app.use((req, res, next) => {
-  if (req.url.startsWith('/app.js')) {
-    req.url = req.url.replace('/app.js', '') || '/';
-  }
-  next();
-});
-
 // Body Parsers
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
