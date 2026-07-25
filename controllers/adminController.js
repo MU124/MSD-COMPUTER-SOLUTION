@@ -16,9 +16,16 @@ const AdminController = {
 
   async postLogin(req, res) {
     try {
-      const username = (req.body.username || '').trim();
-      const password = (req.body.password || '').trim();
-      
+      const username = (req.body && req.body.username ? req.body.username : (req.query.username || '')).trim().toLowerCase();
+      const password = (req.body && req.body.password ? req.body.password : (req.query.password || '')).trim();
+
+      if (!username || !password) {
+        return res.render('admin/login', {
+          title: 'Admin Login | MSD Computer Solution',
+          error: 'Please enter both username and password.'
+        });
+      }
+
       // Ensure default admin exists if table is empty
       await AdminModel.ensureDefaultAdmin();
 
@@ -26,7 +33,7 @@ const AdminController = {
       if (!admin) {
         return res.render('admin/login', {
           title: 'Admin Login | MSD Computer Solution',
-          error: 'Invalid username or password'
+          error: 'Username not found.'
         });
       }
 
@@ -34,7 +41,7 @@ const AdminController = {
       if (!match) {
         return res.render('admin/login', {
           title: 'Admin Login | MSD Computer Solution',
-          error: 'Invalid username or password'
+          error: 'Incorrect password.'
         });
       }
 
