@@ -21,6 +21,7 @@ router.get('/products/edit/:id', requireAdminAuth, AdminController.getEditProduc
 router.post('/products/edit/:id', requireAdminAuth, upload.array('images', 5), AdminController.postEditProduct);
 router.post('/products/regenerate-token/:id', requireAdminAuth, AdminController.postRegenerateToken);
 router.post('/products/delete/:id', requireAdminAuth, AdminController.postDeleteProduct);
+router.post('/products/delete-image/:imageId/:productId', requireAdminAuth, AdminController.postDeleteProductImage);
 
 // Categories
 router.get('/categories', requireAdminAuth, AdminController.getCategories);

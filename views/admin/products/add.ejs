@@ -3,14 +3,14 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
   <div>
     <h2 class="fw-bold mb-1">Add New Product</h2>
-    <p class="text-muted small mb-0">Create a new private item in the database catalog.</p>
+    <p class="text-muted small mb-0">Create a new private item with interactive cropping & auto-compression.</p>
   </div>
   <a href="/admin/products" class="btn btn-outline-secondary">
     <i class="bi bi-arrow-left me-1"></i> Back to Products
   </a>
 </div>
 
-<form action="/admin/products/add" method="POST" enctype="multipart/form-data">
+<form id="productForm" action="/admin/products/add" method="POST" enctype="multipart/form-data">
   <div class="row g-4">
     
     <!-- Left Column: Details -->
@@ -70,14 +70,15 @@
         </div>
       </div>
 
-      <!-- Image Uploads -->
-      <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-        <h5 class="fw-bold mb-3">Product Images</h5>
-        <div class="mb-3">
-          <label class="form-label small fw-semibold">Upload Images (Max 5 images)</label>
-          <input type="file" name="images" class="form-control" multiple accept="image/*">
-          <div class="form-text">First image uploaded will be set as primary photo.</div>
-        </div>
+      <!-- Image Uploads & Cropper -->
+      <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
+        <h5 class="fw-bold mb-2">Product Images & Cropper</h5>
+        <p class="text-muted small mb-3">Select images to crop & auto-compress size (~80KB-120KB) before uploading.</p>
+        
+        <input type="file" id="imageInput" class="form-control mb-3" accept="image/*" multiple>
+
+        <!-- Container for Live Cropped Previews -->
+        <div id="croppedPreviewsContainer" class="d-flex gap-3 flex-wrap"></div>
       </div>
     </div>
 
@@ -147,6 +148,32 @@
   </div>
 </form>
 
+<!-- Cropper Modal -->
+<div class="modal fade" id="cropperModal" tabindex="-1" data-bs-backdrop="static">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Crop & Compress Image</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body text-center p-3">
+        <div style="max-height: 450px; overflow: hidden;" class="bg-dark rounded">
+          <img id="cropperImage" style="max-width: 100%; display: block;">
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <div class="small text-muted">Crop area will be compressed to ~80KB-120KB WebP/JPEG format.</div>
+        <div>
+          <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary-custom" id="cropAndSaveBtn">
+            <i class="bi bi-crop me-1"></i> Crop & Compress
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
   function calculatePrice() {
     const cost = parseFloat(document.getElementById('vendor_cost').value) || 0;
@@ -176,6 +203,112 @@
   function removeSpecRow(btn) {
     btn.closest('.spec-row').remove();
   }
+
+  // --- CROPPER & COMPRESSION LOGIC ---
+  let cropper = null;
+  let fileQueue = [];
+  let currentFileIndex = 0;
+  const croppedFiles = [];
+
+  const imageInput = document.getElementById('imageInput');
+  const cropperModal = new bootstrap.Modal(document.getElementById('cropperModal'));
+  const cropperImage = document.getElementById('cropperImage');
+  const cropAndSaveBtn = document.getElementById('cropAndSaveBtn');
+  const previewsContainer = document.getElementById('croppedPreviewsContainer');
+  const productForm = document.getElementById('productForm');
+
+  imageInput.addEventListener('change', function (e) {
+    if (e.target.files && e.target.files.length > 0) {
+      fileQueue = Array.from(e.target.files);
+      currentFileIndex = 0;
+      processNextFile();
+    }
+  });
+
+  function processNextFile() {
+    if (currentFileIndex < fileQueue.length) {
+      const file = fileQueue[currentFileIndex];
+      const reader = new FileReader();
+      reader.onload = function (evt) {
+        cropperImage.src = evt.target.result;
+        cropperModal.show();
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  document.getElementById('cropperModal').addEventListener('shown.bs.modal', function () {
+    if (cropper) cropper.destroy();
+    cropper = new Cropper(cropperImage, {
+      aspectRatio: 1, // 1:1 Square Ratio
+      viewMode: 1,
+      autoCropArea: 0.9,
+      responsive: true
+    });
+  });
+
+  cropAndSaveBtn.addEventListener('click', function () {
+    if (!cropper) return;
+    
+    // Canvas at 800x800 resolution with 80% compression
+    const canvas = cropper.getCroppedCanvas({
+      width: 800,
+      height: 800
+    });
+
+    canvas.toBlob(function (blob) {
+      const fileName = `cropped-${Date.now()}-${currentFileIndex}.jpg`;
+      const croppedFile = new File([blob], fileName, { type: 'image/jpeg' });
+      croppedFiles.push(croppedFile);
+
+      // Create preview card with file size
+      const sizeKB = (blob.size / 1024).toFixed(1);
+      const previewDiv = document.createElement('div');
+      previewDiv.className = 'border rounded p-2 text-center bg-light position-relative';
+      previewDiv.style.width = '120px';
+      
+      const img = document.createElement('img');
+      img.src = URL.createObjectURL(blob);
+      img.className = 'img-fluid rounded mb-1';
+      img.style.height = '80px';
+      img.style.objectFit = 'cover';
+
+      const badge = document.createElement('div');
+      badge.className = 'badge bg-success small mb-1';
+      badge.innerText = `${sizeKB} KB`;
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'btn btn-sm btn-outline-danger w-100 py-0';
+      removeBtn.innerHTML = '<i class="bi bi-x-circle"></i> Remove';
+      removeBtn.onclick = function () {
+        const idx = croppedFiles.indexOf(croppedFile);
+        if (idx > -1) croppedFiles.splice(idx, 1);
+        previewDiv.remove();
+      };
+
+      previewDiv.appendChild(img);
+      previewDiv.appendChild(badge);
+      previewDiv.appendChild(removeBtn);
+      previewsContainer.appendChild(previewDiv);
+
+      cropperModal.hide();
+      currentFileIndex++;
+      if (currentFileIndex < fileQueue.length) {
+        setTimeout(processNextFile, 300);
+      } else {
+        imageInput.value = '';
+      }
+    }, 'image/jpeg', 0.82);
+  });
+
+  productForm.addEventListener('submit', function (e) {
+    if (croppedFiles.length > 0) {
+      const dataTransfer = new DataTransfer();
+      croppedFiles.forEach(f => dataTransfer.items.add(f));
+      imageInput.files = dataTransfer.files;
+    }
+  });
 </script>
 
 <%- include('../../layouts/admin_footer') %>

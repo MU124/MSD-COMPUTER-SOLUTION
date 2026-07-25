@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const bcrypt = require('bcryptjs');
 const AdminModel = require('../models/adminModel');
 const ProductModel = require('../models/productModel');
@@ -304,6 +306,27 @@ const AdminController = {
     } catch (err) {
       console.error(err);
       res.status(500).send('Server Error');
+    }
+  },
+
+  // Delete Single Product Image
+  async postDeleteProductImage(req, res) {
+    try {
+      const { imageId, productId } = req.params;
+      const image = await ProductModel.getProductImageById(imageId);
+      if (image) {
+        const filePath = path.join(__dirname, '../public', image.image_url);
+        if (fs.existsSync(filePath)) {
+          try {
+            fs.unlinkSync(filePath);
+          } catch (e) {}
+        }
+        await ProductModel.deleteProductImage(imageId);
+      }
+      res.redirect(`/admin/products/edit/${productId}`);
+    } catch (err) {
+      console.error('Error deleting product image:', err.message);
+      res.status(500).send('Error deleting image: ' + err.message);
     }
   },
 

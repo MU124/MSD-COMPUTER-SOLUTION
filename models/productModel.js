@@ -149,11 +149,23 @@ const ProductModel = {
     }
   },
 
+  async getProductImageById(imageId) {
+    try {
+      const [rows] = await db.query('SELECT * FROM product_images WHERE id = ? LIMIT 1', [imageId]);
+      return rows[0] || null;
+    } catch (err) {
+      console.error('Error in getProductImageById:', err.message);
+      return null;
+    }
+  },
+
   async deleteProductImage(imageId) {
     try {
       await db.query('DELETE FROM product_images WHERE id = ?', [imageId]);
+      return true;
     } catch (err) {
       console.error('Error in deleteProductImage:', err.message);
+      throw err;
     }
   }
 };
