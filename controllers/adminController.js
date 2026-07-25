@@ -288,10 +288,13 @@ const AdminController = {
 
       // Handle newly uploaded images
       if (req.files && req.files.length > 0) {
+        const existingImages = await ProductModel.getProductImages(productId);
+        const hasPrimary = existingImages && existingImages.some(img => img.is_primary);
         for (let i = 0; i < req.files.length; i++) {
           const file = req.files[i];
           const imageUrl = '/uploads/' + file.filename;
-          await ProductModel.addProductImage(productId, imageUrl, 0);
+          const isPrimary = (!hasPrimary && i === 0) ? 1 : 0;
+          await ProductModel.addProductImage(productId, imageUrl, isPrimary);
         }
       }
 

@@ -234,6 +234,19 @@ const ProductModel = {
       console.error('Error in deleteProductImage:', err.message);
       throw err;
     }
+  },
+
+  async getProductImages(productId) {
+    try {
+      const [rows] = await db.query(
+        'SELECT * FROM product_images WHERE product_id = ? ORDER BY is_primary DESC, id ASC',
+        [productId]
+      );
+      return rows;
+    } catch (err) {
+      console.error('Error in getProductImages:', err.message);
+      return [];
+    }
   }
 };
 
