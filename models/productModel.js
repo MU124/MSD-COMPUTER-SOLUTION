@@ -28,8 +28,8 @@ const ProductModel = {
 
       if (search && search.trim()) {
         const searchPattern = `%${search.trim()}%`;
-        whereConditions.push('(p.name LIKE ? OR p.brand LIKE ? OR p.model LIKE ?)');
-        queryParams.push(searchPattern, searchPattern, searchPattern);
+        whereConditions.push('(p.name LIKE ? OR p.brand LIKE ? OR p.model LIKE ? OR p.vendor_name LIKE ?)');
+        queryParams.push(searchPattern, searchPattern, searchPattern, searchPattern);
       }
 
       if (category_id) {
