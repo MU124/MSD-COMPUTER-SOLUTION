@@ -379,3 +379,23 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--dark-light);
   border-left-color: var(--primary);
 }
+
+/* Mobile Responsive Media Queries */
+@media (max-width: 991.98px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  .admin-sidebar {
+    min-height: auto;
+  }
+  .offcanvas-body .admin-nav-item {
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+  }
+  .word-break-all {
+    word-break: break-all;
+  }
+  .table-responsive {
+    font-size: 0.85rem;
+  }
+}
