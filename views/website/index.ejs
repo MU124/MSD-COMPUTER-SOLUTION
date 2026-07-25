@@ -1,0 +1,328 @@
+<%- include('../layouts/header') %>
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h1 class="hero-title">
+          Professional Computer & <span>Laptop Services</span>
+        </h1>
+        <p class="hero-subtitle">
+          Repair | CCTV | Networking | Data Recovery <br>
+          Fast & Reliable Service for Home & Business across Mumbai.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3 mb-5">
+          <a href="/contact" class="btn btn-primary-custom">
+            <i class="bi bi-file-earmark-text-fill me-2"></i> GET A FREE QUOTE
+          </a>
+          <a href="tel:<%= (settings && settings.phone_primary) || '+919821760849' %>" class="btn btn-outline-custom">
+            <i class="bi bi-telephone-fill me-2"></i> CALL NOW
+          </a>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-6 col-sm-3">
+            <div class="trust-badge-item">
+              <div class="trust-badge-icon"><i class="bi bi-award-fill"></i></div>
+              <div>10+ Years Experience</div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-3">
+            <div class="trust-badge-item">
+              <div class="trust-badge-icon"><i class="bi bi-currency-rupee"></i></div>
+              <div>Affordable Pricing</div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-3">
+            <div class="trust-badge-item">
+              <div class="trust-badge-icon"><i class="bi bi-headset"></i></div>
+              <div>24/7 Support</div>
+            </div>
+          </div>
+          <div class="col-6 col-sm-3">
+            <div class="trust-badge-item">
+              <div class="trust-badge-icon"><i class="bi bi-patch-check-fill"></i></div>
+              <div>100% Satisfaction</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 text-center">
+        <img src="https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=800&auto=format&fit=crop&q=80" alt="Laptop & Computer Repair" class="img-fluid rounded-4 shadow-lg border border-secondary border-opacity-25">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Services Section -->
+<section class="py-5 bg-light">
+  <div class="container py-4">
+    <div class="section-header">
+      <span class="sub-title">OUR SERVICES</span>
+      <h2 class="display-6 fw-bold">Complete IT Solutions for Your Home & Business</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-laptop"></i></div>
+          <h5>Laptop Repair & Selling</h5>
+          <p>All types of laptop repair services & certified pre-owned laptop buying and selling.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-display"></i></div>
+          <h5>Desktop Repair & Selling</h5>
+          <p>Desktop repair, hardware upgrade & customized desktop building and selling.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-printer"></i></div>
+          <h5>Printer Repair & Service</h5>
+          <p>All brands printer repair, maintenance & cartridge refill services.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-aspect-ratio"></i></div>
+          <h5>LCD / LED Screen Replacement</h5>
+          <p>Old & new laptop, LCD and LED screen replacement with original warranty.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-database-fill-gear"></i></div>
+          <h5>Data Backup & Recovery</h5>
+          <p>Professional data backup solutions and recovery from failed hard drives & SSDs.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-tools"></i></div>
+          <h5>Hardware Repair & Service</h5>
+          <p>Motherboard chip-level repair, RAM/SSD upgrades, and SMPS power repair.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-router"></i></div>
+          <h5>Home & Office Networking</h5>
+          <p>LAN, Wi-Fi router setup, structured cable management & network troubleshooting.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-camera-video"></i></div>
+          <h5>CCTV Surveillance System</h5>
+          <p>HD CCTV camera installation for home, office & commercial premises with mobile view.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="service-card">
+          <div class="service-icon"><i class="bi bi-file-earmark-check"></i></div>
+          <h5>Maintenance Contract (AMC)</h5>
+          <p>Annual Maintenance Contracts (AMC) for computers, laptops & corporate IT hardware.</p>
+          <a href="/services" class="service-link">LEARN MORE <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why Choose Us -->
+<section id="why-us" class="why-section">
+  <div class="container">
+    <div class="section-header text-center text-white mb-5">
+      <h2 class="display-6 fw-bold">WHY CHOOSE MSD COMPUTER SOLUTION?</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-4 col-lg-2">
+        <div class="why-card text-center">
+          <div class="why-icon"><i class="bi bi-people-fill"></i></div>
+          <h6 class="fw-bold">Experienced Team</h6>
+          <p class="small text-secondary mb-0">Certified technicians with 10+ years experience.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <div class="why-card text-center">
+          <div class="why-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+          <h6 class="fw-bold">Fast & Reliable</h6>
+          <p class="small text-secondary mb-0">Quick diagnosis & same-day repair service.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <div class="why-card text-center">
+          <div class="why-icon"><i class="bi bi-shield-check"></i></div>
+          <h6 class="fw-bold">Affordable Pricing</h6>
+          <p class="small text-secondary mb-0">Transparent billing with no hidden costs.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <div class="why-card text-center">
+          <div class="why-icon"><i class="bi bi-cpu"></i></div>
+          <h6 class="fw-bold">Genuine Parts</h6>
+          <p class="small text-secondary mb-0">Only 100% original & branded spare parts.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <div class="why-card text-center">
+          <div class="why-icon"><i class="bi bi-clock-history"></i></div>
+          <h6 class="fw-bold">24/7 Support</h6>
+          <p class="small text-secondary mb-0">Always available to assist your emergencies.</p>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-2">
+        <div class="why-card text-center border-0">
+          <div class="why-icon"><i class="bi bi-emoji-smile-fill"></i></div>
+          <h6 class="fw-bold">Satisfaction</h6>
+          <p class="small text-secondary mb-0">Over 5,000+ satisfied clients across Mumbai.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Overview -->
+<section class="py-5 bg-white">
+  <div class="container py-4">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=800&auto=format&fit=crop&q=80" alt="About MSD Computer Solution" class="img-fluid rounded-4 shadow">
+      </div>
+      <div class="col-lg-6">
+        <span class="text-info fw-bold text-uppercase tracking-wider small">ABOUT COMPANY</span>
+        <h2 class="display-6 fw-bold my-2">We Provide the Best IT Solutions Since 2010</h2>
+        <p class="text-muted leading-relaxed mb-4">
+          MSD Computer Solution is a leading IT service provider in Mumbai. We provide complete computer, laptop, CCTV, networking, and data recovery solutions for home and business users. Our goal is to offer fast, reliable, and affordable services with 100% customer satisfaction.
+        </p>
+        <a href="/about" class="btn btn-primary-custom">
+          READ MORE ABOUT US <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Working Process -->
+<section class="py-5 bg-light">
+  <div class="container py-4">
+    <div class="section-header">
+      <span class="sub-title">OUR WORKING PROCESS</span>
+      <h2 class="display-6 fw-bold">How We Service Your Device</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="process-step">
+          <div class="process-number-badge"><i class="bi bi-telephone"></i></div>
+          <h5>1. Contact Us</h5>
+          <p class="small text-muted">Call or message us about your device issue.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="process-step">
+          <div class="process-number-badge"><i class="bi bi-search"></i></div>
+          <h5>2. Inspection</h5>
+          <p class="small text-muted">Our expert inspects & diagnoses the fault.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="process-step">
+          <div class="process-number-badge"><i class="bi bi-wrench-adjustable"></i></div>
+          <h5>3. Repair</h5>
+          <p class="small text-muted">We repair & thoroughly test the hardware.</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="process-step">
+          <div class="process-number-badge"><i class="bi bi-box-seam"></i></div>
+          <h5>4. Delivery</h5>
+          <p class="small text-muted">We deliver your device safe and tested.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Accordion -->
+<section id="faq" class="py-5 bg-white">
+  <div class="container py-4">
+    <div class="row g-5">
+      <div class="col-lg-5">
+        <span class="text-info fw-bold text-uppercase small">FREQUENTLY ASKED QUESTIONS</span>
+        <h2 class="display-6 fw-bold my-2">Have Questions? We Have Answers.</h2>
+        <p class="text-muted">Find quick answers to common queries about our repair services, warranties, and doorstep support.</p>
+        <a href="/contact" class="btn btn-outline-dark fw-semibold mt-2">
+          Ask a Question <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+
+      <div class="col-lg-7">
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item accordion-item-custom">
+            <h2 class="accordion-header">
+              <button class="accordion-button accordion-button-custom" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                Do you offer a FREE quotation service?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted small">
+                Yes! We offer free quotation service and operate a No-Fix No-Fee policy. So it will cost you nothing to find out if it is worth repairing.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item accordion-item-custom">
+            <h2 class="accordion-header">
+              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                Do you repair only laptops or desktops as well?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted small">
+                We repair both laptops and desktops of all major brands including Dell, HP, Lenovo, Asus, Acer, Apple MacBooks, and custom PC builds.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item accordion-item-custom">
+            <h2 class="accordion-header">
+              <button class="accordion-button accordion-button-custom collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                Can you replace broken laptop screens?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body text-muted small">
+                Yes, we stock genuine LCD/LED screens for almost all laptop models and can replace broken screens with warranty.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../layouts/footer') %>

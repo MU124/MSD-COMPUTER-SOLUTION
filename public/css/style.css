@@ -1,0 +1,381 @@
+/* MSD Computer Solution - Modern Custom Stylesheet */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary: #06B6D4;
+  --primary-dark: #0891B2;
+  --accent: #14B8A6;
+  --dark: #0F172A;
+  --dark-light: #1E293B;
+  --background: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --text: #475569;
+  --heading: #0F172A;
+  --border: #E2E8F0;
+  --success: #22C55E;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+  --shadow-lg: 0 20px 25px -5px rgba(6, 182, 212, 0.15), 0 10px 10px -5px rgba(15, 23, 42, 0.04);
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--text);
+  background-color: var(--background);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  color: var(--heading);
+  font-weight: 700;
+}
+
+/* Global Heading Overrides for Dark Backgrounds */
+.hero-section h1, .hero-section h2, .hero-section h3, .hero-section h4, .hero-section h5, .hero-section h6,
+.bg-dark h1, .bg-dark h2, .bg-dark h3, .bg-dark h4, .bg-dark h5, .bg-dark h6,
+.why-section h1, .why-section h2, .why-section h3, .why-section h4, .why-section h5, .why-section h6,
+.site-footer h1, .site-footer h2, .site-footer h3, .site-footer h4, .site-footer h5, .site-footer h6,
+.text-white h1, .text-white h2, .text-white h3, .text-white h4, .text-white h5, .text-white h6,
+.hero-title {
+  color: #FFFFFF !important;
+}
+
+
+/* Navbar */
+.navbar-custom {
+  background-color: var(--dark);
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.3s ease;
+}
+
+.navbar-brand .logo-badge {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 1.25rem;
+  letter-spacing: -0.5px;
+}
+
+.nav-link-custom {
+  color: #94A3B8 !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem !important;
+  transition: color 0.2s ease;
+}
+
+.nav-link-custom:hover,
+.nav-link-custom.active {
+  color: var(--primary) !important;
+}
+
+/* Buttons */
+.btn-primary-custom {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);
+  transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+  background: linear-gradient(135deg, var(--primary-dark), #0e7490);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.45);
+}
+
+.btn-outline-custom {
+  background: transparent;
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  transition: all 0.3s ease;
+}
+
+.btn-outline-custom:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* Hero Section */
+.hero-section {
+  background: radial-gradient(circle at top right, #1e293b 0%, #0f172a 100%);
+  color: #fff;
+  padding: 80px 0 100px;
+  position: relative;
+}
+
+.hero-title {
+  font-size: 3rem;
+  line-height: 1.15;
+  margin-bottom: 1.25rem;
+}
+
+.hero-title span {
+  color: var(--primary) !important;
+}
+
+.hero-subtitle {
+  color: #94A3B8;
+  font-size: 1.15rem;
+  max-width: 540px;
+  margin-bottom: 2rem;
+}
+
+.trust-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #CBD5E1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.trust-badge-icon {
+  width: 36px;
+  height: 36px;
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Service Cards */
+.section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.section-header .sub-title {
+  text-transform: uppercase;
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.service-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(6, 182, 212, 0.4);
+}
+
+.service-icon {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(20, 184, 166, 0.15));
+  color: var(--primary-dark);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.service-card h5 {
+  font-size: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.service-card p {
+  color: #64748B;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.service-link {
+  color: var(--primary-dark);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 0.85rem;
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: gap 0.2s ease;
+}
+
+.service-link:hover {
+  gap: 8px;
+  color: var(--primary);
+}
+
+/* Why Choose Us Section */
+.why-section {
+  background-color: var(--dark);
+  color: #fff;
+  padding: 80px 0;
+}
+
+.why-card {
+  padding: 1.5rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  height: 100%;
+}
+
+.why-icon {
+  font-size: 2rem;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+/* Process Section */
+.process-step {
+  text-align: center;
+  position: relative;
+}
+
+.process-number-badge {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: #fff;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+  box-shadow: 0 8px 20px rgba(6, 182, 212, 0.3);
+}
+
+/* FAQs Accordion */
+.accordion-item-custom {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm) !important;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.accordion-button-custom {
+  background-color: #fff;
+  color: var(--heading);
+  font-weight: 600;
+  padding: 1.25rem;
+}
+
+.accordion-button-custom:not(.collapsed) {
+  background-color: #ECFEFF;
+  color: var(--primary-dark);
+}
+
+/* Floating WhatsApp & Call Buttons */
+.floating-cta-container {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.floating-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
+
+.floating-btn:hover {
+  transform: scale(1.1);
+  color: #fff;
+}
+
+.btn-whatsapp-float {
+  background-color: #25D366;
+}
+
+.btn-phone-float {
+  background-color: var(--primary);
+}
+
+/* Footer */
+.site-footer {
+  background-color: var(--dark);
+  color: #94A3B8;
+  padding: 70px 0 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.site-footer h5 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 1.25rem;
+}
+
+.site-footer a {
+  color: #94A3B8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer a:hover {
+  color: var(--primary);
+}
+
+/* Admin Dashboard Styling */
+.admin-sidebar {
+  background-color: var(--dark);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.admin-nav-item {
+  color: #94A3B8;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-left: 3px solid transparent;
+}
+
+.admin-nav-item:hover,
+.admin-nav-item.active {
+  color: #fff;
+  background-color: var(--dark-light);
+  border-left-color: var(--primary);
+}

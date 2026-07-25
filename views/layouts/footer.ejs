@@ -1,0 +1,89 @@
+  <!-- Floating Action Buttons -->
+  <div class="floating-cta-container">
+    <a href="https://wa.me/<%= (settings && settings.whatsapp_number) || '919821760849' %>?text=Hello%20MSD%20Computer%20Solution,%20I%20need%20assistance." target="_blank" class="floating-btn btn-whatsapp-float" title="Chat on WhatsApp">
+      <i class="bi bi-whatsapp"></i>
+    </a>
+    <a href="tel:<%= (settings && settings.phone_primary) || '+919821760849' %>" class="floating-btn btn-phone-float" title="Call Now">
+      <i class="bi bi-telephone-fill"></i>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4 mb-5">
+        <!-- Col 1: About -->
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <span class="logo-badge">MSD</span>
+            <div class="lh-sm">
+              <div class="fw-bold fs-5 text-white">COMPUTER SOLUTION</div>
+            </div>
+          </div>
+          <p class="text-secondary small leading-relaxed mb-4">
+            We provide fast, reliable & affordable computer & laptop repair services, CCTV installation, networking solutions, and data recovery for home and business users in Mumbai.
+          </p>
+          <div class="d-flex gap-3">
+            <a href="#" class="text-light fs-5"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="text-light fs-5"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="text-light fs-5"><i class="bi bi-google"></i></a>
+            <a href="#" class="text-light fs-5"><i class="bi bi-twitter-x"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="col-lg-2 col-6">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled d-flex flex-column gap-2 small">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/services">Our Services</a></li>
+            <li><a href="/#why-us">Why Choose Us</a></li>
+            <li><a href="/#faq">FAQ</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Services -->
+        <div class="col-lg-3 col-6">
+          <h5>Our Services</h5>
+          <ul class="list-unstyled d-flex flex-column gap-2 small">
+            <li><a href="/services">Laptop Repair & Selling</a></li>
+            <li><a href="/services">Desktop Repair & Selling</a></li>
+            <li><a href="/services">Printer Repair & Servicing</a></li>
+            <li><a href="/services">CCTV Surveillance System</a></li>
+            <li><a href="/services">Data Recovery & Backup</a></li>
+            <li><a href="/services">Annual Maintenance Contract (AMC)</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Contact Info -->
+        <div class="col-lg-3">
+          <h5>Contact Us</h5>
+          <ul class="list-unstyled d-flex flex-column gap-3 small">
+            <li class="d-flex align-items-start gap-2">
+              <i class="bi bi-geo-alt-fill text-info mt-1"></i>
+              <span><%= (settings && settings.address) || 'LokmanyaNagar, Goregaon East, Mumbai - 400063' %></span>
+            </li>
+            <li class="d-flex align-items-center gap-2">
+              <i class="bi bi-telephone-fill text-info"></i>
+              <a href="tel:<%= (settings && settings.phone_primary) || '+919821760849' %>"><%= (settings && settings.phone_primary) || '+91 9821760849' %></a>
+            </li>
+            <li class="d-flex align-items-center gap-2">
+              <i class="bi bi-envelope-fill text-info"></i>
+              <a href="mailto:<%= (settings && settings.email_primary) || 'info@msdcomputersolution.com' %>"><%= (settings && settings.email_primary) || 'info@msdcomputersolution.com' %></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-top border-secondary border-opacity-25 pt-4 text-center text-secondary small">
+        <p class="mb-0">&copy; <%= new Date().getFullYear() %> MSD Computer Solution. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

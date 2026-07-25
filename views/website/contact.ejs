@@ -1,0 +1,123 @@
+<%- include('../layouts/header') %>
+
+<!-- Page Title Banner -->
+<section class="bg-dark text-white py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold">Contact Us</h1>
+    <p class="text-info mb-0">Get in touch for fast doorstep service or quotes</p>
+  </div>
+</section>
+
+<!-- Contact Form & Details -->
+<section class="py-5 bg-white">
+  <div class="container py-4">
+    <% if (successMessage) { %>
+      <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> <%= successMessage %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% } %>
+
+    <div class="row g-5">
+      <!-- Contact Info -->
+      <div class="col-lg-5">
+        <h3 class="fw-bold mb-4">Contact Information</h3>
+        
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <div class="p-3 bg-light text-info rounded-3 fs-4"><i class="bi bi-geo-alt-fill"></i></div>
+          <div>
+            <h6 class="fw-bold mb-1">Our Location</h6>
+            <p class="text-muted small mb-0"><%= (settings && settings.address) || 'LokmanyaNagar, Goregaon East, Mumbai - 400063' %></p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <div class="p-3 bg-light text-info rounded-3 fs-4"><i class="bi bi-telephone-fill"></i></div>
+          <div>
+            <h6 class="fw-bold mb-1">Phone Number</h6>
+            <p class="text-muted small mb-0">
+              <a href="tel:<%= (settings && settings.phone_primary) || '+919821760849' %>" class="text-decoration-none text-dark fw-semibold">
+                <%= (settings && settings.phone_primary) || '+91 9821760849' %>
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <div class="p-3 bg-light text-info rounded-3 fs-4"><i class="bi bi-envelope-fill"></i></div>
+          <div>
+            <h6 class="fw-bold mb-1">Email Address</h6>
+            <p class="text-muted small mb-0">
+              <a href="mailto:<%= (settings && settings.email_primary) || 'info@msdcomputersolution.com' %>" class="text-decoration-none text-dark">
+                <%= (settings && settings.email_primary) || 'info@msdcomputersolution.com' %>
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-start gap-3 mb-4">
+          <div class="p-3 bg-light text-info rounded-3 fs-4"><i class="bi bi-clock-fill"></i></div>
+          <div>
+            <h6 class="fw-bold mb-1">Working Hours</h6>
+            <p class="text-muted small mb-0"><%= (settings && settings.working_hours) || 'Monday - Saturday: 9:00 AM - 8:00 PM' %></p>
+          </div>
+        </div>
+
+        <!-- Google Map Embed Placeholder -->
+        <div class="mt-4 rounded-4 overflow-hidden shadow-sm border border-secondary border-opacity-10">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.423456789!2d72.855!3d19.165!2m3!1f0!1f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTnCsDA5JzU0LjAiTiA3MsKwNTEnMTguMCJF!5e0!3m2!1sen!2sin!4v1625000000000!5m2!1sen!2sin" width="100%" height="220" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+      </div>
+
+      <!-- Contact Form -->
+      <div class="col-lg-7">
+        <div class="p-4 p-md-5 bg-light rounded-4 border border-secondary border-opacity-10 shadow-sm">
+          <h3 class="fw-bold mb-3">Send Us a Message</h3>
+          <p class="text-muted small mb-4">Have a question or need a repair quote? Fill in your details below and our team will get back to you promptly.</p>
+
+          <form action="/contact" method="POST">
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Your Name *</label>
+              <input type="text" name="name" class="form-control" placeholder="John Doe" required>
+            </div>
+            
+            <div class="row g-3 mb-3">
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Phone Number *</label>
+                <input type="tel" name="phone" class="form-control" placeholder="+91 98765 43210" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label small fw-semibold">Email Address</label>
+                <input type="email" name="email" class="form-control" placeholder="john@example.com">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label small fw-semibold">Service Needed</label>
+              <select name="service" class="form-select">
+                <option value="Laptop Repair">Laptop Repair & Servicing</option>
+                <option value="Desktop Repair">Desktop Repair & Upgrade</option>
+                <option value="CCTV Installation">CCTV Camera Setup</option>
+                <option value="Data Recovery">Data Recovery</option>
+                <option value="Printer Servicing">Printer Servicing</option>
+                <option value="Networking">Networking / Wi-Fi</option>
+                <option value="AMC">Annual Maintenance Contract (AMC)</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label class="form-label small fw-semibold">Message / Issue Details *</label>
+              <textarea name="message" class="form-control" rows="4" placeholder="Describe the issue with your computer or requirement..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary-custom w-100 py-3">
+              <i class="bi bi-send-fill me-2"></i> SEND MESSAGE NOW
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('../layouts/footer') %>

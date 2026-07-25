@@ -1,0 +1,10 @@
+Primary      : #06B6D4;
+Primary Dark : #0891B2;
+Accent        : #14B8A6;
+Dark          : #0F172A;
+Background    : #F8FAFC;
+Card          : #FFFFFF;
+Text          : #475569;
+Heading       : #0F172A;
+Border        : #E2E8F0;
+Success       : #22C55E;

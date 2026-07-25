@@ -1,0 +1,55 @@
+<%- include('../layouts/admin_header') %>
+
+<div class="mb-4">
+  <h2 class="fw-bold mb-1">Website Settings</h2>
+  <p class="text-muted small mb-0">Update contact details, business hours, and social channels shown across the website.</p>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+  <form action="/admin/settings" method="POST">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <label class="form-label small fw-semibold">Company Name</label>
+        <input type="text" name="site_name" class="form-control" value="<%= (settings && settings.site_name) || 'MSD Computer Solution' %>">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label small fw-semibold">Tagline / Subheading</label>
+        <input type="text" name="tagline" class="form-control" value="<%= (settings && settings.tagline) || 'Professional Computer & Laptop Services in Mumbai' %>">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label small fw-semibold">Primary Phone Number</label>
+        <input type="text" name="phone_primary" class="form-control" value="<%= (settings && settings.phone_primary) || '+91 9821760849' %>">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label small fw-semibold">Primary Email Address</label>
+        <input type="email" name="email_primary" class="form-control" value="<%= (settings && settings.email_primary) || 'info@msdcomputersolution.com' %>">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label small fw-semibold">WhatsApp Number (For Direct Chat Links)</label>
+        <input type="text" name="whatsapp_number" class="form-control" value="<%= (settings && settings.whatsapp_number) || '919821760849' %>" placeholder="e.g. 919821760849">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label small fw-semibold">Working Hours</label>
+        <input type="text" name="working_hours" class="form-control" value="<%= (settings && settings.working_hours) || 'Monday - Saturday: 9:00 AM - 8:00 PM' %>">
+      </div>
+
+      <div class="col-12">
+        <label class="form-label small fw-semibold">Business Address</label>
+        <textarea name="address" class="form-control" rows="2"><%= (settings && settings.address) || 'LokmanyaNagar, Goregaon East, Mumbai - 400063' %></textarea>
+      </div>
+
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary-custom px-4 py-2">
+          <i class="bi bi-save-fill me-1"></i> SAVE ALL SETTINGS
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<%- include('../layouts/admin_footer') %>
