@@ -17,6 +17,73 @@ const ProductModel = {
     }
   },
 
+  async getPaginatedProducts({ search, category_id, status, page = 1, limit = 10 }) {
+    try {
+      const pageNum = parseInt(page) || 1;
+      const limitNum = parseInt(limit) || 10;
+      const offset = (pageNum - 1) * limitNum;
+
+      let whereConditions = [];
+      let queryParams = [];
+
+      if (search && search.trim()) {
+        const searchPattern = `%${search.trim()}%`;
+        whereConditions.push('(p.name LIKE ? OR p.brand LIKE ? OR p.model LIKE ?)');
+        queryParams.push(searchPattern, searchPattern, searchPattern);
+      }
+
+      if (category_id) {
+        whereConditions.push('p.category_id = ?');
+        queryParams.push(parseInt(category_id));
+      }
+
+      if (status && (status === 'active' || status === 'inactive')) {
+        whereConditions.push('p.status = ?');
+        queryParams.push(status);
+      }
+
+      const whereClause = whereConditions.length > 0 ? 'WHERE ' + whereConditions.join(' AND ') : '';
+
+      const countQuery = `
+        SELECT COUNT(*) AS total 
+        FROM products p 
+        LEFT JOIN categories c ON p.category_id = c.id 
+        ${whereClause}
+      `;
+      const [countRows] = await db.query(countQuery, queryParams);
+      const totalCount = countRows[0].total || 0;
+      const totalPages = Math.ceil(totalCount / limitNum) || 1;
+
+      const dataQuery = `
+        SELECT p.*, c.name AS category_name 
+        FROM products p 
+        LEFT JOIN categories c ON p.category_id = c.id 
+        ${whereClause}
+        ORDER BY p.id DESC 
+        LIMIT ? OFFSET ?
+      `;
+      const dataParams = [...queryParams, limitNum, offset];
+      const [products] = await db.query(dataQuery, dataParams);
+
+      return {
+        products,
+        totalCount,
+        totalPages,
+        currentPage: pageNum,
+        limit: limitNum
+      };
+    } catch (err) {
+      console.error('Error in getPaginatedProducts:', err.message);
+      return {
+        products: [],
+        totalCount: 0,
+        totalPages: 1,
+        currentPage: 1,
+        limit: 10
+      };
+    }
+  },
+
   async getProductById(id) {
     try {
       const query = `

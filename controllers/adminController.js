@@ -98,7 +98,17 @@ const AdminController = {
   // Product List
   async getProducts(req, res) {
     try {
-      const products = await ProductModel.getAllProducts();
+      const { search, category, status, page } = req.query;
+      const categories = await CategoryModel.getAllCategories();
+
+      const paginationResult = await ProductModel.getPaginatedProducts({
+        search,
+        category_id: category,
+        status,
+        page: page || 1,
+        limit: 10
+      });
+
       const host = req.get('host');
       const protocol = req.protocol;
 
@@ -106,7 +116,14 @@ const AdminController = {
         title: 'Product Management | MSD Admin',
         page: 'products',
         admin: req.session.admin,
-        products,
+        products: paginationResult.products,
+        pagination: paginationResult,
+        categories,
+        filters: {
+          search: search || '',
+          category: category || '',
+          status: status || ''
+        },
         baseUrl: `${protocol}://${host}`
       });
     } catch (err) {

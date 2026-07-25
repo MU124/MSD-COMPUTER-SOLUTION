@@ -10,8 +10,55 @@
   </a>
 </div>
 
+<!-- Search & Filter Toolbar -->
+<div class="card border-0 shadow-sm rounded-4 p-3 bg-white mb-4">
+  <form action="/admin/products" method="GET" class="row g-2 align-items-center">
+    <div class="col-md-4">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text bg-light"><i class="bi bi-search"></i></span>
+        <input type="text" name="search" class="form-control" placeholder="Search by Name, Brand, or Model..." value="<%= filters.search %>">
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <select name="category" class="form-select form-select-sm">
+        <option value="">-- All Categories --</option>
+        <% if (categories) { %>
+          <% categories.forEach(c => { %>
+            <option value="<%= c.id %>" <%= filters.category == c.id ? 'selected' : '' %>><%= c.name %></option>
+          <% }) %>
+        <% } %>
+      </select>
+    </div>
+
+    <div class="col-md-2">
+      <select name="status" class="form-select form-select-sm">
+        <option value="">-- All Status --</option>
+        <option value="active" <%= filters.status === 'active' ? 'selected' : '' %>>Active</option>
+        <option value="inactive" <%= filters.status === 'inactive' ? 'selected' : '' %>>Inactive</option>
+      </select>
+    </div>
+
+    <div class="col-md-3 d-flex gap-2">
+      <button type="submit" class="btn btn-sm btn-primary-custom flex-grow-1">
+        <i class="bi bi-funnel-fill me-1"></i> Filter
+      </button>
+      <a href="/admin/products" class="btn btn-sm btn-outline-secondary" title="Reset Filters">
+        <i class="bi bi-arrow-counterclockwise"></i> Reset
+      </a>
+    </div>
+  </form>
+</div>
+
+<!-- Product List Card -->
 <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
   <% if (products && products.length > 0) { %>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="small text-muted">
+        Showing <%= ((pagination.currentPage - 1) * pagination.limit) + 1 %> - <%= Math.min(pagination.currentPage * pagination.limit, pagination.totalCount) %> of <%= pagination.totalCount %> products
+      </div>
+    </div>
+
     <div class="table-responsive">
       <table class="table table-hover align-middle mb-0">
         <thead class="table-light">
@@ -74,12 +121,37 @@
         </tbody>
       </table>
     </div>
+
+    <!-- Pagination Controls -->
+    <% if (pagination.totalPages > 1) { %>
+      <% 
+        const queryString = `search=${encodeURIComponent(filters.search)}&category=${encodeURIComponent(filters.category)}&status=${encodeURIComponent(filters.status)}`;
+      %>
+      <nav class="d-flex justify-content-center mt-4">
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item <%= pagination.currentPage === 1 ? 'disabled' : '' %>">
+            <a class="page-link" href="/admin/products?<%= queryString %>&page=<%= pagination.currentPage - 1 %>">Previous</a>
+          </li>
+          
+          <% for(let i = 1; i <= pagination.totalPages; i++) { %>
+            <li class="page-item <%= pagination.currentPage === i ? 'active' : '' %>">
+              <a class="page-link" href="/admin/products?<%= queryString %>&page=<%= i %>"><%= i %></a>
+            </li>
+          <% } %>
+
+          <li class="page-item <%= pagination.currentPage === pagination.totalPages ? 'disabled' : '' %>">
+            <a class="page-link" href="/admin/products?<%= queryString %>&page=<%= pagination.currentPage + 1 %>">Next</a>
+          </li>
+        </ul>
+      </nav>
+    <% } %>
+
   <% } else { %>
     <div class="text-center py-5">
-      <div class="fs-1 text-muted mb-3"><i class="bi bi-inbox"></i></div>
-      <h5>No Products Created Yet</h5>
-      <p class="text-muted small">Products added here remain private and are accessible only via secure shared links.</p>
-      <a href="/admin/products/add" class="btn btn-primary-custom">Add First Product</a>
+      <div class="fs-1 text-muted mb-3"><i class="bi bi-search"></i></div>
+      <h5>No Matching Products Found</h5>
+      <p class="text-muted small">Try adjusting your search query or reset filters.</p>
+      <a href="/admin/products" class="btn btn-sm btn-outline-secondary">Reset Filters</a>
     </div>
   <% } %>
 </div>
