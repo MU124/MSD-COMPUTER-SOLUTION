@@ -25,6 +25,14 @@ app.use(express.json());
 // Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
+// IISNode URL Normalization (Strips IIS /app.js prefix)
+app.use((req, res, next) => {
+  if (req.url.startsWith('/app.js')) {
+    req.url = req.url.replace('/app.js', '') || '/';
+  }
+  next();
+});
+
 // View Engine (EJS)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
