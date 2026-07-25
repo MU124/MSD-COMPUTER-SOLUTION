@@ -35,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `category_id` INT DEFAULT NULL,
   `price` DECIMAL(10,2) DEFAULT '0.00',
   `vendor_cost` DECIMAL(10,2) DEFAULT '0.00',
+  `vendor_name` VARCHAR(255) DEFAULT NULL,
   `profit_margin` DECIMAL(10,2) DEFAULT '0.00',
   `stock_quantity` INT DEFAULT 1,
   `short_description` TEXT DEFAULT NULL,

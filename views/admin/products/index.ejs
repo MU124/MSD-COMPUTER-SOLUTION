@@ -85,7 +85,14 @@
                 <div class="small text-muted"><%= p.brand ? p.brand : '' %> <%= p.model ? '(' + p.model + ')' : '' %> | <%= p.category_name || 'Uncategorized' %></div>
               </td>
               <td class="fw-bold text-primary">₹<%= parseFloat(p.price || 0).toLocaleString('en-IN') %></td>
-              <td class="text-muted small">₹<%= parseFloat(p.vendor_cost || 0).toLocaleString('en-IN') %></td>
+              <td class="text-muted small">
+                <div>₹<%= parseFloat(p.vendor_cost || 0).toLocaleString('en-IN') %></div>
+                <% if (p.vendor_name) { %>
+                  <div class="text-muted text-truncate extra-small" style="max-width: 130px; font-size: 0.75rem;" title="<%= p.vendor_name %>">
+                    <i class="bi bi-shop me-1"></i><%= p.vendor_name %>
+                  </div>
+                <% } %>
+              </td>
               <td class="text-success fw-bold small">₹<%= parseFloat(p.profit_margin || 0).toLocaleString('en-IN') %></td>
               <td>
                 <% if (p.status === 'active') { %>
@@ -155,6 +162,9 @@
               <div class="bg-white rounded p-1 border">
                 <div class="text-muted extra-small" style="font-size: 0.7rem;">Vendor Cost</div>
                 <div class="text-secondary small">₹<%= parseFloat(p.vendor_cost || 0).toLocaleString('en-IN') %></div>
+                <% if (p.vendor_name) { %>
+                  <div class="text-muted text-truncate" style="font-size: 0.65rem;" title="<%= p.vendor_name %>"><%= p.vendor_name %></div>
+                <% } %>
               </div>
             </div>
             <div class="col-4">

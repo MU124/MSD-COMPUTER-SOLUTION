@@ -130,21 +130,21 @@ const ProductModel = {
   async createProduct(data) {
     try {
       const {
-        name, brand, model, category_id, price, vendor_cost, profit_margin,
+        name, brand, model, category_id, price, vendor_cost, vendor_name, profit_margin,
         stock_quantity, short_description, full_description, specifications,
         public_token, seo_slug, status, featured
       } = data;
 
       const query = `
         INSERT INTO products (
-          name, brand, model, category_id, price, vendor_cost, profit_margin,
+          name, brand, model, category_id, price, vendor_cost, vendor_name, profit_margin,
           stock_quantity, short_description, full_description, specifications,
           public_token, seo_slug, status, featured
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
 
       const [result] = await db.query(query, [
-        name, brand, model, category_id || null, price || 0, vendor_cost || 0, profit_margin || 0,
+        name, brand, model, category_id || null, price || 0, vendor_cost || 0, vendor_name || null, profit_margin || 0,
         stock_quantity || 1, short_description, full_description, JSON.stringify(specifications || {}),
         public_token, seo_slug, status || 'active', featured ? 1 : 0
       ]);
@@ -159,21 +159,21 @@ const ProductModel = {
   async updateProduct(id, data) {
     try {
       const {
-        name, brand, model, category_id, price, vendor_cost, profit_margin,
+        name, brand, model, category_id, price, vendor_cost, vendor_name, profit_margin,
         stock_quantity, short_description, full_description, specifications,
         seo_slug, status, featured
       } = data;
 
       const query = `
         UPDATE products SET 
-          name = ?, brand = ?, model = ?, category_id = ?, price = ?, vendor_cost = ?, profit_margin = ?,
+          name = ?, brand = ?, model = ?, category_id = ?, price = ?, vendor_cost = ?, vendor_name = ?, profit_margin = ?,
           stock_quantity = ?, short_description = ?, full_description = ?, specifications = ?,
           seo_slug = ?, status = ?, featured = ?
         WHERE id = ?
       `;
 
       await db.query(query, [
-        name, brand, model, category_id || null, price || 0, vendor_cost || 0, profit_margin || 0,
+        name, brand, model, category_id || null, price || 0, vendor_cost || 0, vendor_name || null, profit_margin || 0,
         stock_quantity || 1, short_description, full_description, JSON.stringify(specifications || {}),
         seo_slug, status || 'active', featured ? 1 : 0, id
       ]);

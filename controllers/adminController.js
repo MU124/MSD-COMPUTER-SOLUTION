@@ -152,7 +152,7 @@ const AdminController = {
   async postAddProduct(req, res) {
     try {
       const {
-        name, brand, model, category_id, price, vendor_cost, profit_margin,
+        name, brand, model, category_id, price, vendor_cost, vendor_name, profit_margin,
         stock_quantity, short_description, full_description, specs_keys, specs_values,
         status, featured
       } = req.body;
@@ -188,6 +188,7 @@ const AdminController = {
         category_id: category_id ? parseInt(category_id) : null,
         price: finalPrice,
         vendor_cost: vCost,
+        vendor_name: vendor_name ? vendor_name.trim() : null,
         profit_margin: pMargin,
         stock_quantity: parseInt(stock_quantity) || 1,
         short_description,
@@ -244,7 +245,7 @@ const AdminController = {
     try {
       const productId = req.params.id;
       const {
-        name, brand, model, category_id, price, vendor_cost, profit_margin,
+        name, brand, model, category_id, price, vendor_cost, vendor_name, profit_margin,
         stock_quantity, short_description, full_description, specs_keys, specs_values,
         status, featured
       } = req.body;
@@ -276,6 +277,7 @@ const AdminController = {
         category_id: category_id ? parseInt(category_id) : null,
         price: finalPrice,
         vendor_cost: vCost,
+        vendor_name: vendor_name ? vendor_name.trim() : null,
         profit_margin: pMargin,
         stock_quantity: parseInt(stock_quantity) || 1,
         short_description,
