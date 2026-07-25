@@ -9,7 +9,7 @@ const AdminModel = {
       return rows[0] || null;
     } catch (err) {
       console.error('Error in findByUsername:', err.message);
-      return null;
+      throw err;
     }
   },
 

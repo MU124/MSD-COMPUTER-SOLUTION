@@ -59,10 +59,10 @@ const AdminController = {
         return res.redirect('/admin/dashboard');
       });
     } catch (err) {
-      console.error(err);
+      console.error('Login Exception:', err.message);
       res.render('admin/login', {
         title: 'Admin Login | MSD Computer Solution',
-        error: 'System error during login'
+        error: 'Database Error: ' + err.message
       });
     }
   },
