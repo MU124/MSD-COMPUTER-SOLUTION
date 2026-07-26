@@ -233,6 +233,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body text-center p-3">
+        <!-- Aspect Ratio Selection Toolbar -->
+        <div class="d-flex justify-content-center align-items-center gap-2 mb-3 flex-wrap">
+          <span class="small text-muted fw-semibold me-1"><i class="bi bi-aspect-ratio me-1"></i>Crop Ratio:</span>
+          <button type="button" class="btn btn-sm btn-dark ratio-btn active" data-ratio="free">Free Size</button>
+          <button type="button" class="btn btn-sm btn-outline-dark ratio-btn" data-ratio="1">1:1 Square</button>
+          <button type="button" class="btn btn-sm btn-outline-dark ratio-btn" data-ratio="1.3333333">4:3</button>
+          <button type="button" class="btn btn-sm btn-outline-dark ratio-btn" data-ratio="1.7777777">16:9</button>
+        </div>
         <div style="max-height: 450px; overflow: hidden;" class="bg-dark rounded">
           <img id="cropperImage" style="max-width: 100%; display: block;">
         </div>
@@ -327,10 +335,40 @@
       }
     }
 
+    // Ratio button handlers
+    document.querySelectorAll('.ratio-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        if (!cropper) return;
+        const ratio = this.getAttribute('data-ratio');
+        if (ratio === 'free') {
+          cropper.setAspectRatio(NaN);
+        } else {
+          cropper.setAspectRatio(parseFloat(ratio));
+        }
+        document.querySelectorAll('.ratio-btn').forEach(b => {
+          b.classList.remove('active', 'btn-dark');
+          b.classList.add('btn-outline-dark');
+        });
+        this.classList.remove('btn-outline-dark');
+        this.classList.add('btn-dark', 'active');
+      });
+    });
+
     cropperModalEl.addEventListener('shown.bs.modal', function () {
       if (cropper) cropper.destroy();
+      // Reset ratio buttons UI to Free Size
+      document.querySelectorAll('.ratio-btn').forEach(b => {
+        b.classList.remove('active', 'btn-dark');
+        b.classList.add('btn-outline-dark');
+      });
+      const freeBtn = document.querySelector('.ratio-btn[data-ratio="free"]');
+      if (freeBtn) {
+        freeBtn.classList.remove('btn-outline-dark');
+        freeBtn.classList.add('btn-dark', 'active');
+      }
+
       cropper = new Cropper(cropperImage, {
-        aspectRatio: 1, // 1:1 Square Ratio
+        aspectRatio: NaN, // Free Size Crop Ratio
         viewMode: 1,
         autoCropArea: 0.9,
         responsive: true
@@ -356,10 +394,10 @@
       if (!cropper) return;
       isSaved = true;
       
-      // Canvas at 800x800 resolution with 80% compression
+      // Preserve natural crop aspect ratio with max bounds for auto-compression
       const canvas = cropper.getCroppedCanvas({
-        width: 800,
-        height: 800
+        maxWidth: 1200,
+        maxHeight: 1200
       });
 
       if (!canvas) {
