@@ -169,16 +169,22 @@ const AdminController = {
       const public_token = generateToken(16);
       const seo_slug = generateSlug(name);
 
-      // Parse specifications into object
-      const specifications = {};
+      // Parse specifications into an ordered array of objects (preserves insertion sequence)
+      const specifications = [];
       if (Array.isArray(specs_keys) && Array.isArray(specs_values)) {
         specs_keys.forEach((key, idx) => {
           if (key && key.trim()) {
-            specifications[key.trim()] = (specs_values[idx] || '').trim();
+            specifications.push({
+              key: key.trim(),
+              value: (specs_values[idx] || '').trim()
+            });
           }
         });
       } else if (specs_keys && specs_values) {
-        specifications[specs_keys.trim()] = specs_values.trim();
+        specifications.push({
+          key: specs_keys.trim(),
+          value: specs_values.trim()
+        });
       }
 
       const productId = await ProductModel.createProduct({
@@ -259,15 +265,22 @@ const AdminController = {
 
       const seo_slug = generateSlug(name);
 
-      const specifications = {};
+      // Parse specifications into an ordered array of objects (preserves insertion sequence)
+      const specifications = [];
       if (Array.isArray(specs_keys) && Array.isArray(specs_values)) {
         specs_keys.forEach((key, idx) => {
           if (key && key.trim()) {
-            specifications[key.trim()] = (specs_values[idx] || '').trim();
+            specifications.push({
+              key: key.trim(),
+              value: (specs_values[idx] || '').trim()
+            });
           }
         });
       } else if (specs_keys && specs_values) {
-        specifications[specs_keys.trim()] = specs_values.trim();
+        specifications.push({
+          key: specs_keys.trim(),
+          value: specs_values.trim()
+        });
       }
 
       await ProductModel.updateProduct(productId, {

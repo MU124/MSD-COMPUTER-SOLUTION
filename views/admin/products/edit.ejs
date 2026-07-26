@@ -70,9 +70,18 @@
 
       <!-- Specification Matrix Builder -->
       <% 
-        let specsObj = {};
+        let specsList = [];
         try {
-          specsObj = typeof product.specifications === 'string' ? JSON.parse(product.specifications) : (product.specifications || {});
+          let rawSpecs = typeof product.specifications === 'string' ? JSON.parse(product.specifications) : (product.specifications || []);
+          if (Array.isArray(rawSpecs)) {
+            specsList = rawSpecs.map(i => {
+              if (Array.isArray(i)) return { key: i[0], value: i[1] };
+              if (typeof i === 'object' && i !== null) return { key: i.key || i.name || '', value: i.value || '' };
+              return { key: '', value: '' };
+            }).filter(i => i.key);
+          } else if (typeof rawSpecs === 'object' && rawSpecs !== null) {
+            specsList = Object.entries(rawSpecs).map(([key, value]) => ({ key, value }));
+          }
         } catch(e) {}
       %>
       <div class="card border-0 shadow-sm rounded-4 p-4 bg-white mb-4">
@@ -84,15 +93,14 @@
         </div>
 
         <div id="specsContainer">
-          <% const keys = Object.keys(specsObj); %>
-          <% if (keys.length > 0) { %>
-            <% keys.forEach(key => { %>
+          <% if (specsList.length > 0) { %>
+            <% specsList.forEach(item => { %>
               <div class="row g-2 mb-2 spec-row">
                 <div class="col-5">
-                  <input type="text" name="specs_keys" class="form-control form-control-sm" value="<%= key %>">
+                  <input type="text" name="specs_keys" class="form-control form-control-sm" value="<%= item.key %>">
                 </div>
                 <div class="col-6">
-                  <input type="text" name="specs_values" class="form-control form-control-sm" value="<%= specsObj[key] %>">
+                  <input type="text" name="specs_values" class="form-control form-control-sm" value="<%= item.value %>">
                 </div>
                 <div class="col-1 text-end">
                   <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeSpecRow(this)"><i class="bi bi-x"></i></button>
